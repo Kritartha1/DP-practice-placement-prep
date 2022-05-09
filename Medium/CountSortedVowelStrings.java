@@ -1,6 +1,6 @@
 //leetcode.com/problems/count-sorted-vowel-strings/
 
-//Approach 1: Top down
+//Approach 1: Top down..worst case time complexity
 class Solution {
     
     char[] v={'a','e','i','o','u'};
@@ -117,5 +117,39 @@ class Solution {
         
         //Simple Permutation and combination using stick method...or partition method
         return ((n+4)*(n+3)*(n+2)*(n+1))/24;
+    }
+}
+
+//Approach 4: Bottom up
+class Solution {
+    public int countVowelStrings(int n) {
+        int[][] dp=new int[n+1][6];
+        
+        //dp[n][k] means the number of strings constructed by at most k different characters.
+
+        // If k = 1, use only u
+        // If k = 2, use only o,u
+        // If k = 3, use only i,o,u
+        // If k = 4, use only e,i,o,u
+        // If k = 5, use only a,e,i,o,u
+        
+        //vowels[]={'a','e','i','o','u'}
+        //           0   1   2   3   4
+        
+        //dp[i-1][j]=string of length i-1 using atmost j vowels from idx (4-j+1) to 4..
+        //here leading character will be vowel (4-j+1) ..i.e if j=3 or k=3, leading vowel will be i.
+        
+        //dp[i][j-1]=string of length i using atmost j-1 vowels from idx (4-(j-1)+1) to 4..
+        //leading vowel will not be same as (4-j+1) or j=3, then leading  vowel won't be i..it will be either o or u..
+        
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=5;j++){
+                
+                dp[i][j]=dp[i][j-1]+(i>1?dp[i-1][j]:1);
+            }
+        }
+        
+        return dp[n][5];
     }
 }
