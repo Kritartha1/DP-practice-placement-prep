@@ -29,6 +29,7 @@ class Solution {
 }
 
 //Approach 2: One pass
+//leetcode.com/problems/sort-colors/discuss/681526/Python-O(n)-3-pointers-in-place-approach-explained
 class Solution {
     public void sortColors(int[] nums) {
         
