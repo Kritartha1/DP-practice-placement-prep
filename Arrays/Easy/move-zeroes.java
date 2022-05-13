@@ -65,3 +65,23 @@ class Solution {
         
     }
 }
+
+//Approach 4:
+class Solution {
+        public void moveZeroes(int[] nums) {
+        int n=nums.length;
+        int i=0,j=0;
+            //i =next index to last non zero array val
+        
+        while(j<n){
+            if(nums[j]!=0){
+                //swap
+                int t=nums[j];
+                nums[j]=nums[i];
+                nums[i++]=t;
+                
+            }
+            ++j;
+        }
+    }
+}
