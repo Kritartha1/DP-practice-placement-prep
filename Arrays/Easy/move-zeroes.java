@@ -43,3 +43,25 @@ class Solution {
         
     }
 }
+
+//Approach 3;
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int n=nums.length;
+        int insert_pos=0;//posn after last non zero element..
+        //let last non zero pos =-1 which is just imaginary not real..
+        //so next_insert position will be 0.
+        
+        for(int i=0;i<n;i++){
+            if(nums[i]!=0){
+                nums[insert_pos++]=nums[i];
+            }
+        }
+        
+        // Fill remaining space with zeros
+        while(insert_pos<n){
+            nums[insert_pos++]=0;
+        }
+        
+    }
+}
