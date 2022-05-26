@@ -60,3 +60,40 @@ class Solution {
         
     }
 }
+
+//Approach 3:
+class Solution {
+    //closure number
+    //slowest
+    //Time =space=O({4^n}/sqrt(n));
+    
+//     Approach 3: Closure Number
+// Intuition
+
+// To enumerate something, generally we would like to express it as a sum of disjoint subsets that are easier to count.
+
+// Consider the closure number of a valid parentheses sequence S: the least index >= 0 so that S[0], S[1], ..., S[2*index+1] is valid. Clearly, every parentheses sequence has a unique closure number. We can try to enumerate them individually.
+
+// Algorithm
+
+// For each closure number c, we know the starting and ending brackets must be at index 0 and 2*c + 1. Then, the 2*c elements between must be a valid sequence, plus the rest of the elements must be a valid sequence.
+    
+    public List<String> generateParenthesis(int n) {
+        List<String> l=new ArrayList<>();
+        if(n==0){
+            l.add("");
+        }
+        else{
+            for(int c=0;c<n;++c){
+                for(String left:generateParenthesis(c))//length 2c
+                {
+                    for(String right:generateParenthesis(n-c-1))//length 2n-(2c+2)
+                    {
+                        l.add("("+left+")"+right);
+                    }
+                }
+            }
+        }
+        return l;
+    }
+}
