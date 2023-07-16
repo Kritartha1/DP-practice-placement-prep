@@ -1,0 +1,82 @@
+//https://leetcode.com/problems/smallest-sufficient-team/
+class Solution {
+    
+    ArrayList<Integer> ans;
+
+    public int[] smallestSufficientTeam(String[] req_skills, List<List<String>> people) {
+        
+        Map<String,Integer> mp=new HashMap<>();
+        
+        int n=0;
+        
+        for(String a:req_skills){
+            
+            mp.put(a,n++);
+            
+        }
+        
+        int[] peeps=new int[people.size()];
+        
+        for(int i=0;i<people.size();i++){
+            
+            for(String peep:people.get(i)){
+                
+                peeps[i]|=(1<<mp.get(peep));
+                
+            }
+        }
+        
+        ans=new ArrayList<Integer>();
+        
+        solve(peeps,0,n,new ArrayList<Integer>());
+        
+        int[] res=new int[ans.size()];
+        
+        for(int i=0;i<ans.size();i++){
+            
+            res[i]=ans.get(i);
+            
+        }
+        
+        return res;
+          
+    }
+    
+    void solve(int[] peeps,int mask,int n,ArrayList<Integer> curr){
+        
+        if(mask==(1<<n)-1){
+            
+            if(ans.size()==0||curr.size()<ans.size()){
+                
+                ans=new ArrayList<>(curr);
+                
+            }
+            
+            return;
+        }
+        
+        if(ans.size()!=0&&curr.size()>ans.size()){
+            
+            return ;
+            
+        }
+        
+        int zb=0;
+        
+        while(((mask>>zb)&1)==1){zb++;}
+        
+        for(int i=0;i<peeps.length;i++){
+            
+            if(((peeps[i]>>zb)&1)==1){
+                
+                curr.add(i);
+                
+                solve(peeps,mask|peeps[i],n,curr);
+                
+                curr.remove(curr.size()-1);
+            }
+        }
+        
+    }
+}
+
